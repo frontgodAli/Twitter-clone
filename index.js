@@ -73,12 +73,9 @@ function saveToLocalStorage(){
     localStorage.setItem("tweetsdata",JSON.stringify(tweetsData))
 }
 function loadLocalStorage(){
-        let savedTweetsData = JSON.parse(localStorage.getItem("tweetsdata"));
-        if (savedTweetsData) {
-            // Update the values within the constant
+
             tweetsData.length = 0; // Clear the existing array
-            tweetsData.push(...savedTweetsData); // Push the new items
-        }
+            tweetsData.push(...JSON.parse(localStorage.getItem("tweetsdata"))); // Push the new items
 }
     
 
