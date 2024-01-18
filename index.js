@@ -1,8 +1,10 @@
-import { tweetsData } from "./data.js";
+import { tweetsData } from './data.js';
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
-document.addEventListener("click",function(e){
 
+loadLocalStorage()
+
+document.addEventListener("click",function(e){
     if(e.target.dataset.likes){
         handleLikes(e.target.dataset.likes)
     }else if(e.target.dataset.retweets){
@@ -12,7 +14,6 @@ document.addEventListener("click",function(e){
     }else if(e.target.id==='tweet-btn'){
         tweet()
     }
-    
 })
 
 function handleLikes(tweetUid){
@@ -26,6 +27,7 @@ function handleLikes(tweetUid){
     }
     thisTweet.isLiked=!thisTweet.isLiked
     render()
+    saveToLocalStorage()
 }
 
 function handleRetweets(tweetUid){
@@ -39,10 +41,12 @@ function handleRetweets(tweetUid){
     }
     thisTweet.isRetweeted=!thisTweet.isRetweeted
     render()
+    saveToLocalStorage()
 }
 
 function handleReplies(tweetUid){
 document.getElementById(`replies-${tweetUid}`).classList.toggle("hidden")
+
 }
 
 function tweet(){
@@ -59,14 +63,25 @@ function tweet(){
             isRetweeted: false,
             uuid: uuidv4()
         })
+        render()
+        saveToLocalStorage()
     }
     tweetInput.value=""
-    render()
 }
 
+function saveToLocalStorage(){
+    localStorage.setItem("tweetsdata",JSON.stringify(tweetsData))
+}
+function loadLocalStorage(){
+        let savedTweetsData = JSON.parse(localStorage.getItem("tweetsdata"));
+        if (savedTweetsData) {
+            // Update the values within the constant
+            tweetsData.length = 0; // Clear the existing array
+            tweetsData.push(...savedTweetsData); // Push the new items
+        }
+}
+    
 
-
-render()
 
 function getFeedHtml(){
     let feedHtml=``
@@ -130,4 +145,6 @@ function getFeedHtml(){
 function render(){
     document.getElementById("feed").innerHTML=getFeedHtml()
 }
+
+render()
 
