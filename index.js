@@ -2,7 +2,7 @@ import { tweetsData } from './data.js';
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
 
-loadLocalStorage()
+//loadLocalStorage()
 
 document.addEventListener("click",function(e){
     if(e.target.dataset.likes){
@@ -27,7 +27,7 @@ function handleLikes(tweetUid){
     }
     thisTweet.isLiked=!thisTweet.isLiked
     render()
-    saveToLocalStorage()
+    //saveToLocalStorage()
 }
 
 function handleRetweets(tweetUid){
@@ -41,7 +41,7 @@ function handleRetweets(tweetUid){
     }
     thisTweet.isRetweeted=!thisTweet.isRetweeted
     render()
-    saveToLocalStorage()
+    //saveToLocalStorage()
 }
 
 function handleReplies(tweetUid){
@@ -64,19 +64,19 @@ function tweet(){
             uuid: uuidv4()
         })
         render()
-        saveToLocalStorage()
+        //saveToLocalStorage()
     }
     tweetInput.value=""
 }
 
-function saveToLocalStorage(){
+/*function saveToLocalStorage(){
     localStorage.setItem("tweetsdata",JSON.stringify(tweetsData))
-}
-function loadLocalStorage(){
+}*/
+/*function loadLocalStorage(){
 
             tweetsData.length = 0; // Clear the existing array
             tweetsData.push(...JSON.parse(localStorage.getItem("tweetsdata"))); // Push the new items
-}
+}*/
     
 
 
